@@ -1,20 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+// native components
+import { StatusBar, SafeAreaView, StyleSheet, ScrollView, useWindowDimensions } from "react-native";
+// internal components
+import Card from "./components/card/Card";
+// navigation
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+const Tab = createBottomTabNavigator();
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    const windowDimensions = useWindowDimensions();
+
+    return (
+        <SafeAreaView style={{ flex: 1 }}>
+            <StatusBar hidden={true} />
+            <ScrollView
+                style={styles.wrapper}
+                decelerationRate="fast"
+                snapToInterval={windowDimensions.height}
+                snapToAlignment="start"
+            >
+                <Card />
+                <Card />
+            </ScrollView>
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    wrapper: {
+        flex: 1,
+        backgroundColor: "#000",
+    },
 });
