@@ -1,31 +1,30 @@
-import { StyleSheet, View, Dimensions } from "react-native";
+// native components
+import { StyleSheet, View } from "react-native";
+
+// custom components
 import CardActions from "./CardActions/CardActions";
 import CardBody from "./CardBody/CardBody";
 import CardHeader from "./CardHeader/CardHeader";
 
-export default function Card() {
-    const windowHeight = Dimensions.get("window").height;
-
+export default function Card({ safeAreaH, bannerText, cardAccentColor, cardImage, chips, ctaButtonLabel }) {
+    // styles
     const styles = StyleSheet.create({
         card: {
-            height: windowHeight,
+            height: safeAreaH,
             paddingHorizontal: 24,
-            backgroundColor: "#28446e",
+            backgroundColor: "#ccc",
         },
     });
 
     return (
         <View style={styles.card}>
-            {/* 
-                Card Container
-                ===========================
-                Todo: background: API image
-                    - Launch: Rocket Image
-                    - People In Space: Astronauts Profile Image
-            */}
-            <CardHeader />
+            <CardHeader bannerText={bannerText} />
             <CardBody />
-            <CardActions />
+            <CardActions
+                chips={chips}
+                cardAccentColor={cardAccentColor}
+                ctaButtonLabel={ctaButtonLabel}
+            />
         </View>
     );
 }

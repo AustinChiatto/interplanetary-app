@@ -1,6 +1,7 @@
+// native components
 import { StyleSheet, Text, View } from "react-native";
 
-export default function CardHeader() {
+export default function CardHeader({ bannerText }) {
     return (
         <View style={styles.cardHeader}>
             {/* card header */}
@@ -12,7 +13,7 @@ export default function CardHeader() {
                         - Launches: (home) T- time (else) mission name
                         - People In Space: Astronaut First & Last Name
                 */}
-                <Text style={styles.cardBannerText}>Banner Text</Text>
+                <Text style={styles.cardBannerText}>{bannerText}</Text>
             </View>
         </View>
     );

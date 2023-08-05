@@ -1,3 +1,4 @@
+// native components
 import { StyleSheet, Text, View } from "react-native";
 
 export default function CardBody() {
