@@ -1,5 +1,5 @@
 // native components
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, ImageBackground } from "react-native";
 
 // custom components
 import CardActions from "./CardActions/CardActions";
@@ -12,19 +12,21 @@ export default function Card({ safeAreaH, bannerText, cardAccentColor, cardImage
         card: {
             height: safeAreaH,
             paddingHorizontal: 24,
-            backgroundColor: "#ccc",
         },
     });
 
     return (
-        <View style={styles.card}>
+        <ImageBackground
+            source={{ uri: cardImage }}
+            style={styles.card}
+        >
             <CardHeader bannerText={bannerText} />
-            <CardBody />
+            <CardBody cardImage={cardImage} />
             <CardActions
                 chips={chips}
                 cardAccentColor={cardAccentColor}
                 ctaButtonLabel={ctaButtonLabel}
             />
-        </View>
+        </ImageBackground>
     );
 }

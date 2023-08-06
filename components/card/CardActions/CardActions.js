@@ -37,6 +37,8 @@ export default function CardActions({ cardAccentColor, ctaButtonLabel, chips }) 
         return () => clearTimeout(timer);
     });
 
+    const countdownTime = `${timeLeft.days || 0} : ${timeLeft.hours || 0} : ${timeLeft.minutes || 0} : ${timeLeft.seconds || 0}`;
+
     // Set Styles
     const styles = StyleSheet.create({
         cardActions: {
@@ -52,6 +54,7 @@ export default function CardActions({ cardAccentColor, ctaButtonLabel, chips }) 
             height: "fit-content",
             color: "#fff",
             borderWidth: 1,
+            backgroundColor: "#000",
             borderColor: `${cardAccentColor}`,
             borderRadius: 50,
             paddingHorizontal: 14,
@@ -71,22 +74,12 @@ export default function CardActions({ cardAccentColor, ctaButtonLabel, chips }) 
     // Component
     return (
         <View style={styles.cardActions}>
-            {/* 
-                Actions
-                ===========================
-                Todo: CTA Button text - API
-                    - Launches: (home) View Launch Details (else) T- time
-                    - People In Space: Learn More
-                Todo: Chip - API
-                    - Launches: Provider, Vehicle
-                    - People In Space: Country, In-Space Icon
-            */}
             <View style={styles.cardChips}>
                 {/* Card Chip Container */}
                 <Text style={styles.cardChip}>{chips.provider}</Text>
                 <Text style={styles.cardChip}>{chips.vehicle}</Text>
             </View>
-            <Text style={styles.cardCTA}>{`${timeLeft.days || 0} : ${timeLeft.hours || 0} : ${timeLeft.minutes || 0} : ${timeLeft.seconds || 0}`}</Text>
+            <Text style={styles.cardCTA}>{countdownTime}</Text>
         </View>
     );
 }

@@ -32,21 +32,18 @@ export default function Upcoming() {
                 snapToAlignment="start"
             >
                 {upcomingData &&
-                    upcomingData.result &&
-                    Object.values(upcomingData.result).map(
-                        (e) =>
-                            e.t0 && (
-                                <Card
-                                    key={e.id}
-                                    safeAreaH={safeAreaH}
-                                    cardAccentColor={cardAccentColor}
-                                    cardImage={e.cardImage}
-                                    bannerText={e.name}
-                                    chips={{ provider: e.provider.name, vehicle: e.vehicle.name }}
-                                    ctaButtonLabel={e.t0}
-                                />
-                            )
-                    )}
+                    upcomingData.results &&
+                    Object.values(upcomingData.results).map((e) => (
+                        <Card
+                            key={e.id}
+                            safeAreaH={safeAreaH}
+                            cardAccentColor={cardAccentColor}
+                            cardImage={e.image}
+                            bannerText={e.name}
+                            chips={{ provider: e.launch_service_provider.name, vehicle: e.rocket.configuration.name }}
+                            ctaButtonLabel={e.window_start}
+                        />
+                    ))}
             </ScrollView>
         </View>
     );

@@ -6,13 +6,6 @@ export default function CardHeader({ bannerText }) {
         <View style={styles.cardHeader}>
             {/* card header */}
             <View style={styles.cardBanner}>
-                {/* 
-                    Card Banner
-                    ===========================
-                    Todo: banner text - API
-                        - Launches: (home) T- time (else) mission name
-                        - People In Space: Astronaut First & Last Name
-                */}
                 <Text style={styles.cardBannerText}>{bannerText}</Text>
             </View>
         </View>
@@ -31,7 +24,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#000",
+        backgroundColor: "#1e1e1e",
     },
     cardBannerText: {
         color: "#fff",

@@ -1,19 +1,8 @@
-// native components
+// native
 import { StyleSheet, Text, View } from "react-native";
 
 export default function CardBody() {
-    return (
-        <View style={styles.cardBody}>
-            {/* 
-                Card Body
-                ===========================
-                Todo: body heading - API
-                    - Launches: (home) mission name (else) null
-                    - People In Space: null
-            */}
-            <Text style={styles.cardBodyText}>Body</Text>
-        </View>
-    );
+    return <View style={styles.cardBody}></View>;
 }
 
 const styles = StyleSheet.create({

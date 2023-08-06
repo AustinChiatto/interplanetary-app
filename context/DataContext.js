@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import axios from "axios";
 
 const DataContext = createContext();
@@ -9,13 +10,34 @@ export const DataProvider = ({ children }) => {
     const [pastData, setPastData] = useState(null);
     const [astronautData, setAstronautData] = useState(null);
 
+    // ! api key do not leave this in deployed version
+    const APIKEY = "279b59fd868c54d3a9ad0d21bdbef35633744a6b";
+
     // Upcoming API Request
     // ===========================
     useEffect(() => {
         const fetchData = async () => {
+            // Get the timestamp of the last fetch
+            // const lastFetchString = await AsyncStorage.getItem("lastFetch");
+            // const lastFetch = lastFetchString ? Number(lastFetchString) : 0;
+
+            // const now = Date.now();
+
+            // If the last fetch was less than an hour ago, don't fetch again
+            // if (now - lastFetch < 15 * 60 * 1000) {
+            //     return;
+            // }
+
             try {
-                const response = await axios.get("https://fdo.rocketlaunch.live/json/launches?key=e3457b5f-07ea-416e-afdd-36084089052b");
+                const response = await axios.get("https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=10", {
+                    headers: {
+                        Authorization: `Token ${APIKEY}`,
+                    },
+                });
+
                 setUpcomingData(response.data);
+                // Save the timestamp of this fetch
+                // await AsyncStorage.setItem("lastFetch", String(now));
             } catch (error) {
                 console.error(error);
             }
@@ -28,17 +50,27 @@ export const DataProvider = ({ children }) => {
     // ===========================
     useEffect(() => {
         const fetchData = async () => {
-            const currDate = new Date();
-            // Format to YYYY-MM-DD
-            const beforeDate = `${currDate.getFullYear()}-${String(currDate.getMonth() + 1).padStart(2, "0")}-${String(currDate.getDate()).padStart(2, "0")}`;
+            // Get the timestamp of the last fetch
+            // const lastFetchString = await AsyncStorage.getItem("lastFetch");
+            // const lastFetch = lastFetchString ? Number(lastFetchString) : 0;
 
-            const prevDate = new Date();
-            prevDate.setMonth(prevDate.getMonth() - 1);
-            // Format to YYYY-MM-DD
-            const afterDate = `${prevDate.getFullYear()}-${String(prevDate.getMonth() + 1).padStart(2, "0")}-${String(prevDate.getDate()).padStart(2, "0")}`;
+            // const now = Date.now();
+
+            // If the last fetch was less than an hour ago, don't fetch again
+            // if (now - lastFetch < 15 * 60 * 1000) {
+            //     return;
+            // }
+
             try {
-                const response = await axios.get(`https://fdo.rocketlaunch.live/json/launches?key=e3457b5f-07ea-416e-afdd-36084089052b&before_date=${beforeDate}&after_date=${afterDate}`);
+                const response = await axios.get("https://ll.thespacedevs.com/2.2.0/launch/previous/?limit=10", {
+                    headers: {
+                        Authorization: `Token ${APIKEY}`,
+                    },
+                });
+
                 setPastData(response.data);
+                // Save the timestamp of this fetch
+                // await AsyncStorage.setItem("lastFetch", String(now));
             } catch (error) {
                 console.error(error);
             }
