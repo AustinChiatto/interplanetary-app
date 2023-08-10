@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-export default function CardActions({ cardAccentColor, ctaButtonLabel, chips }) {
+export default function CardActions({ cardAccentColor, ctaButtonLabel, chips, view }) {
     const calculateTimeLeft = () => {
+        // Timer for upcoming launches
+        // ===========================
         const difference = +new Date(ctaButtonLabel) - +new Date();
         let timeLeft = {};
 
@@ -76,10 +78,10 @@ export default function CardActions({ cardAccentColor, ctaButtonLabel, chips }) 
         <View style={styles.cardActions}>
             <View style={styles.cardChips}>
                 {/* Card Chip Container */}
-                <Text style={styles.cardChip}>{chips.provider}</Text>
-                <Text style={styles.cardChip}>{chips.vehicle}</Text>
+                <Text style={styles.cardChip}>{chips.chip1}</Text>
+                <Text style={styles.cardChip}>{chips.chip2}</Text>
             </View>
-            <Text style={styles.cardCTA}>{countdownTime}</Text>
+            <Text style={styles.cardCTA}>{view == "upcoming" ? countdownTime : "View Details"}</Text>
         </View>
     );
 }

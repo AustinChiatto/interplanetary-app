@@ -21,13 +21,15 @@ const styles = StyleSheet.create({
     cardBanner: {
         width: "100%",
         paddingVertical: 16,
-        borderRadius: 50,
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#1e1e1e",
+        backgroundColor: "#070707",
+        borderWidth: 1,
+        borderColor: "#393939",
+        borderRadius: 50,
     },
     cardBannerText: {
         color: "#fff",
-        fontSize: 26,
+        fontSize: 17,
     },
 });

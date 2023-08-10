@@ -14,6 +14,7 @@ export default function Past() {
     const [safeAreaH, setSafeAreaH] = useState(0);
     // color used for card accents
     const cardAccentColor = "#2835F8";
+    const view = "past";
     // API data from context
     const { pastData } = useContext(DataContext);
 
@@ -32,21 +33,19 @@ export default function Past() {
                 snapToAlignment="start"
             >
                 {pastData &&
-                    pastData.result &&
-                    Object.values(pastData.result).map(
-                        (e) =>
-                            e.t0 && (
-                                <Card
-                                    key={e.id}
-                                    safeAreaH={safeAreaH}
-                                    cardAccentColor={cardAccentColor}
-                                    cardImage={e.cardImage}
-                                    bannerText={e.name}
-                                    chips={{ provider: e.provider.name, vehicle: e.vehicle.name }}
-                                    ctaButtonLabel={e.t0}
-                                />
-                            )
-                    )}
+                    pastData.results &&
+                    Object.values(pastData.results).map((e) => (
+                        <Card
+                            key={e.id}
+                            view={view}
+                            safeAreaH={safeAreaH}
+                            cardAccentColor={cardAccentColor}
+                            cardImage={e.image}
+                            bannerText={e.mission && e.mission.name ? e.mission.name : "Unknown"}
+                            chips={{ chip1: e.mission?.agencies[0]?.abbrev ?? e.pad.country_code, chip2: e.rocket.configuration.full_name }}
+                            ctaButtonLabel={e.window_start}
+                        />
+                    ))}
             </ScrollView>
         </View>
     );

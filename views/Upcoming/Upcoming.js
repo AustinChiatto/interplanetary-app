@@ -14,6 +14,7 @@ export default function Upcoming() {
     const [safeAreaH, setSafeAreaH] = useState(0);
     // color used for card accents
     const cardAccentColor = "#FF003D";
+    const view = "upcoming";
     // API data from context
     const { upcomingData } = useContext(DataContext);
 
@@ -36,11 +37,12 @@ export default function Upcoming() {
                     Object.values(upcomingData.results).map((e) => (
                         <Card
                             key={e.id}
+                            view={view}
                             safeAreaH={safeAreaH}
                             cardAccentColor={cardAccentColor}
                             cardImage={e.image}
-                            bannerText={e.name}
-                            chips={{ provider: e.launch_service_provider.name, vehicle: e.rocket.configuration.name }}
+                            bannerText={e.mission && e.mission.name ? e.mission.name : "Unknown"}
+                            chips={{ chip1: e.mission?.agencies[0]?.abbrev ?? e.pad.country_code, chip2: e.rocket.configuration.full_name }}
                             ctaButtonLabel={e.window_start}
                         />
                     ))}

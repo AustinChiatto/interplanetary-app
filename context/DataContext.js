@@ -13,92 +13,48 @@ export const DataProvider = ({ children }) => {
     // ! api key do not leave this in deployed version
     const APIKEY = "279b59fd868c54d3a9ad0d21bdbef35633744a6b";
 
-    // Upcoming API Request
+    // sets base url and passes in auth token as a header
+    const apiClient = axios.create({
+        baseURL: "https://lldev.thespacedevs.com/2.2.0/",
+        headers: {
+            Authorization: `Token ${APIKEY}`,
+        },
+    });
+
+    // API Requests
     // ===========================
-    useEffect(() => {
-        const fetchData = async () => {
-            // Get the timestamp of the last fetch
-            // const lastFetchString = await AsyncStorage.getItem("lastFetch");
-            // const lastFetch = lastFetchString ? Number(lastFetchString) : 0;
+    const fetchData = async () => {
+        try {
+            // get locally stored item - date of last API fetch
+            // const lastFetch = await AsyncStorage.getItem("lastFetch");
 
-            // const now = Date.now();
+            // If it has been more than 15 minutes, send the request and update the timestamp (have limited API calls per hour - set to ensure I don't hit the limit)
+            // if (!lastFetch || Date.now() - Number(lastFetch) > 15 * 60 * 1000) {
+            // fetch all urls using Promise.all
+            const [upcomingData, pastData, astronautData] = await Promise.all([apiClient.get("launch/upcoming/?limit=10"), apiClient.get("launch/previous/?limit=10"), apiClient.get("astronaut/?in_space=true")]);
 
-            // If the last fetch was less than an hour ago, don't fetch again
-            // if (now - lastFetch < 15 * 60 * 1000) {
-            //     return;
+            // set states of upcomingData, pastData, and astronautData to equal fetched data
+            setUpcomingData(upcomingData.data);
+            setPastData(pastData.data);
+            setAstronautData(astronautData.data);
+
+            // store date of fetch
+            // await AsyncStorage.setItem("lastFetch", Date.now().toString());
             // }
+        } catch (error) {
+            console.error(error);
+        }
+    };
 
-            try {
-                const response = await axios.get("https://ll.thespacedevs.com/2.2.0/launch/upcoming/?limit=10", {
-                    headers: {
-                        Authorization: `Token ${APIKEY}`,
-                    },
-                });
-
-                setUpcomingData(response.data);
-                // Save the timestamp of this fetch
-                // await AsyncStorage.setItem("lastFetch", String(now));
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
+    useEffect(() => {
         fetchData();
     }, []);
-
-    // Past API Request
-    // ===========================
-    useEffect(() => {
-        const fetchData = async () => {
-            // Get the timestamp of the last fetch
-            // const lastFetchString = await AsyncStorage.getItem("lastFetch");
-            // const lastFetch = lastFetchString ? Number(lastFetchString) : 0;
-
-            // const now = Date.now();
-
-            // If the last fetch was less than an hour ago, don't fetch again
-            // if (now - lastFetch < 15 * 60 * 1000) {
-            //     return;
-            // }
-
-            try {
-                const response = await axios.get("https://ll.thespacedevs.com/2.2.0/launch/previous/?limit=10", {
-                    headers: {
-                        Authorization: `Token ${APIKEY}`,
-                    },
-                });
-
-                setPastData(response.data);
-                // Save the timestamp of this fetch
-                // await AsyncStorage.setItem("lastFetch", String(now));
-            } catch (error) {
-                console.error(error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    // People In Space (Astronaut) API Request
-    // ===========================
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         try {
-    //             const response = await axios.get("https://fdo.rocketlaunch.live/json/launches?key=e3457b5f-07ea-416e-afdd-36084089052b");
-    //             setUpcomingData(response.data);
-    //         } catch (error) {
-    //             console.error(error);
-    //         }
-    //     };
-
-    //     fetchData();
-    // }, []);
 
     // all values to be passed through context
     const contextValues = {
         upcomingData: upcomingData,
         pastData: pastData,
-        // astronautData: astronautData,
+        astronautData: astronautData,
     };
 
     return <DataContext.Provider value={contextValues}>{children}</DataContext.Provider>;

@@ -2,7 +2,10 @@
 import { StatusBar, View, StyleSheet, ScrollView } from "react-native";
 
 // hooks
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+
+// context
+import DataContext from "../../context/DataContext";
 
 // custom components
 import Card from "../../components/card/Card";
@@ -11,13 +14,9 @@ export default function Astronauts() {
     const [safeAreaH, setSafeAreaH] = useState(0);
     // color used for card accents
     const cardAccentColor = "#FF3D00";
-
-    // todo: temp array - this will be filled by API
-    const cardArray = [
-        { index: 1, safeAreaH: safeAreaH, cardAccentColor: cardAccentColor, cardImage: "test", bannerText: "Astronauts 1", chips: "chips", ctaButtonLabel: "CTA Button" },
-        { index: 2, safeAreaH: safeAreaH, cardAccentColor: cardAccentColor, cardImage: "test", bannerText: "Astronauts 2", chips: "chips", ctaButtonLabel: "CTA Button" },
-        { index: 3, safeAreaH: safeAreaH, cardAccentColor: cardAccentColor, cardImage: "test", bannerText: "Astronauts 3", chips: "chips", ctaButtonLabel: "CTA Button" },
-    ];
+    const view = "astronaut";
+    // API data from context
+    const { astronautData } = useContext(DataContext);
 
     return (
         <View
@@ -33,17 +32,19 @@ export default function Astronauts() {
                 snapToInterval={safeAreaH}
                 snapToAlignment="start"
             >
-                {Object.values(cardArray).map((e) => (
-                    <Card
-                        key={e.index}
-                        safeAreaH={e.safeAreaH}
-                        cardAccentColor={e.cardAccentColor}
-                        cardImage={e.cardImage}
-                        bannerText={e.bannerText}
-                        chips={e.chips}
-                        ctaButtonLabel={e.ctaButtonLabel}
-                    />
-                ))}
+                {astronautData &&
+                    astronautData.results &&
+                    Object.values(astronautData.results).map((e) => (
+                        <Card
+                            key={e.id}
+                            view={view}
+                            safeAreaH={safeAreaH}
+                            cardAccentColor={cardAccentColor}
+                            cardImage={e.profile_image}
+                            bannerText={e.name}
+                            chips={{ chip1: e.nationality, chip2: e.agency.abbrev }}
+                        />
+                    ))}
             </ScrollView>
         </View>
     );
