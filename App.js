@@ -33,7 +33,7 @@ export default function App() {
                     <Stack.Screen
                         name="AstronautDetails"
                         component={AstronautDetails}
-                        options={{ headerShown: true, title: "Mission Details" }}
+                        options={{ headerShown: true, title: "Astronaut Details" }}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
