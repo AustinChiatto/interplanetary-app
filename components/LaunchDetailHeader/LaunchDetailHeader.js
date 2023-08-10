@@ -45,7 +45,7 @@ export default function LaunchDetailHeader({ view, bannerText, chips }) {
         <View style={styles.header}>
             {/* card header */}
             <View style={styles.banner}>
-                <Text style={styles.bannerText}>{view == "upcoming" ? countdownTime : "View Details"}</Text>
+                <Text style={styles.bannerText}>{countdownTime}</Text>
             </View>
             <View style={styles.chips}>
                 {/* Card Chip Container */}

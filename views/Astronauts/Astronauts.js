@@ -37,6 +37,7 @@ export default function Astronauts() {
                     Object.values(astronautData.results).map((e) => (
                         <Card
                             key={e.id}
+                            data={e}
                             view={view}
                             safeAreaH={safeAreaH}
                             cardAccentColor={cardAccentColor}

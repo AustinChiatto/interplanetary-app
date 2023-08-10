@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import TabNavigator from "./components/TabNavigator/TabNavigator";
 import LaunchDetails from "./views/LaunchDetails/LaunchDetails";
 import LoadingScreen from "./components/LoadingScreen/LoadingScreen";
+import AstronautDetails from "./views/AstronautDetails/AstronautDetails";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,11 @@ export default function App() {
                     <Stack.Screen
                         name="LaunchDetails"
                         component={LaunchDetails}
+                        options={{ headerShown: true, title: "Mission Details" }}
+                    />
+                    <Stack.Screen
+                        name="AstronautDetails"
+                        component={AstronautDetails}
                         options={{ headerShown: true, title: "Mission Details" }}
                     />
                 </Stack.Navigator>

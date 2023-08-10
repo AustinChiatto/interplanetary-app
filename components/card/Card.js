@@ -45,9 +45,14 @@ export default function Card({ data, safeAreaH, bannerText, cardAccentColor, car
         <Pressable
             activeOpacity={0.5}
             onPress={async () => {
-                navigation.navigate("LoadingScreen");
-                await fetchRocketDetails();
-                navigation.replace("LaunchDetails", { data: data, rocketDetails: rocketDetails, view: view });
+                if (view !== "astronaut") {
+                    navigation.navigate("LoadingScreen");
+                    await fetchRocketDetails();
+                    navigation.replace("LaunchDetails", { data: data, rocketDetails: rocketDetails, view: view });
+                } else {
+                    navigation.navigate("LoadingScreen");
+                    navigation.replace("AstronautDetails", { data: data, rocketDetails: rocketDetails, view: view });
+                }
             }}
         >
             <ImageBackground
