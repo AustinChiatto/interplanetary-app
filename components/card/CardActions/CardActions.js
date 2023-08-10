@@ -13,7 +13,7 @@ export default function CardActions({ cardAccentColor, ctaButtonLabel, chips, vi
             timeLeft = {
                 days: Math.floor(difference / (1000 * 60 * 60 * 24))
                     .toString()
-                    .padStart(2, "0"),
+                    .padEnd(7, " Days"),
                 hours: Math.floor((difference / (1000 * 60 * 60)) % 24)
                     .toString()
                     .padStart(2, "0"),

@@ -37,11 +37,12 @@ export default function Upcoming() {
                     Object.values(upcomingData.results).map((e) => (
                         <Card
                             key={e.id}
+                            data={e}
                             view={view}
                             safeAreaH={safeAreaH}
                             cardAccentColor={cardAccentColor}
                             cardImage={e.image}
-                            bannerText={e.mission && e.mission.name ? e.mission.name : "Unknown"}
+                            bannerText={e.mission && e.mission.name ? e.mission.name : "Redacted"}
                             chips={{ chip1: e.mission?.agencies[0]?.abbrev ?? e.pad.country_code, chip2: e.rocket.configuration.full_name }}
                             ctaButtonLabel={e.window_start}
                         />

@@ -5,7 +5,7 @@ import axios from "axios";
 const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
-    // state that holds api result
+    // state for parent API data
     const [upcomingData, setUpcomingData] = useState(null);
     const [pastData, setPastData] = useState(null);
     const [astronautData, setAstronautData] = useState(null);
